@@ -10,8 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Сделать с циклом while
-
 namespace Практическая_работа__8
 {
     internal class Program
