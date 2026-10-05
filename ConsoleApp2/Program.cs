@@ -76,18 +76,21 @@ namespace Практическая_работа__8
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"Что-то пошло не так! Ошибка: {fex.Message} Попробуйте ещё раз.");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: Входная строка имела неправильный формат. 
                     Console.ForegroundColor = ConsoleColor.White;
+                    continue;
                 }
                 catch (OverflowException ofex)//обработчик исключения OverflowException (Значение было недопустимо малым или недопустимо большим для Int32)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"Что-то пошло не так! Ошибка: {ofex.Message} Попробуйте ещё раз.");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: Значение было недопустимо малым или недопустимо большим для Int32.
                     Console.ForegroundColor = ConsoleColor.White;
+                    continue;
                 }
                 catch (Exception ex)//обработка исключения Exception (все ошибки в целом)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"Что-то пошло не так! Ошибка: {ex.Message} Попробуйте ещё раз.");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: сообщение об ошибке из ex.Message.
                     Console.ForegroundColor = ConsoleColor.White;
+                    continue;
                 }
 
                 while (true)//повторное выполнение цикла с вопросом: Хотите продолжить выполнение? (1-Да/0-Нет).
