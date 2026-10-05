@@ -1,4 +1,4 @@
-﻿//********************************************************************
+//********************************************************************
 //*Практическая работа №8                                            *
 //*Сделал Егоров Н.Н, группа 2-ИСП                                   *
 //*Задание: определить кол-во баллов школ, лучшую школу и участника  *
@@ -23,17 +23,16 @@ namespace Практическая_работа__8
 
             int students;
             bool ExitProgram = false;//объявление выхода из программы как ложное выражение
-            try
+            Console.WriteLine("Здравствуйте!");
+            while (true)//повторное выполнение программы
             {
-                Console.WriteLine("Здравствуйте!");
-                while (true)//повторное выполнение программы
+                try
                 {
                     Console.Write("Введите количество участников в 3 школах: ");
                     students = Int32.Parse(Console.ReadLine());
-                    Console.WriteLine();
-                    if (students < 0)
+                    if (students <= 0)
                     {
-                        Console.WriteLine("Вы ввели отрицательное число студентов. Попробуйте ещё раз.\n");
+                        Console.WriteLine("Вы ввели некорректное число студентов. Попробуйте ещё раз.");
                         continue;
                     }
                     else
@@ -70,51 +69,76 @@ namespace Практическая_работа__8
                         Console.WriteLine($"Школа 3: {score3}");
                         Console.WriteLine($"Победитель: Школа {BestSchool}");
                         Console.WriteLine($"Лучший участник: Школа {BestSchool}, участник {BestStudentNumber} ({MaxStudentScore} баллов).\n");
+                    }
+                }
+                catch (FormatException fex)//обработчик исключения FormatException (входная строка имела неправильный формат)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Что-то пошло не так! Ошибка: {fex.Message} Попробуйте ещё раз.");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: Входная строка имела неправильный формат. 
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                catch (OverflowException ofex)//обработчик исключения OverflowException (Значение было недопустимо малым или недопустимо большим для Int32)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Что-то пошло не так! Ошибка: {ofex.Message} Попробуйте ещё раз.");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: Значение было недопустимо малым или недопустимо большим для Int32.
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                catch (Exception ex)//обработка исключения Exception (все ошибки в целом)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Что-то пошло не так! Ошибка: {ex.Message} Попробуйте ещё раз.");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: сообщение об ошибке из ex.Message.
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
 
-                        while (true)//повторное выполнение цикла с вопросом: Хотите продолжить выполнение? (1-Да/0-Нет).
+                while (true)//повторное выполнение цикла с вопросом: Хотите продолжить выполнение? (1-Да/0-Нет).
+                {
+                    try
+                    {
+                        Console.Write("Хотите продолжить выполнение? (1-Да/0-Нет): ");
+                        int answer = Int32.Parse(Console.ReadLine());
+                        if (answer < 0 || answer > 1)//если ответ пользователя меньше 0 или больше 1
                         {
-                            Console.Write("Хотите продолжить выполнение? (1-Да/0-Нет): ");
-                            int answer = Int32.Parse(Console.ReadLine());
-                            if (answer < 0 || answer > 1)//если ответ пользователя меньше 0 или больше 1
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Вы ввели некорректное число. Попробуйте ещё раз.");//некорректное число, просит пользователя попробовать ещё раз ввести значение
+                            Console.ForegroundColor = ConsoleColor.White;
+                            continue;//продолжает итерацию внутреннего цикла
+                        }
+                        else//иначе
+                        {
+                            if (answer == 0)//если ответ пользователя равен 0
                             {
-                                Console.WriteLine("Вы ввели некорректное число. Попробуйте ещё раз.");//некорректное число, просит пользователя попробовать ещё раз ввести значение
-                                continue;//продолжает итерацию внутреннего цикла
+                                ExitProgram = true;//флаг выхода из программы становится истинным
+                                Console.WriteLine("Завершение программы.");//выводится сообщение: Завершение программы.
                             }
-                            else//иначе
-                            {
-                                if (answer == 0)//если ответ пользователя равен 0
-                                {
-                                    ExitProgram = true;//выход программы становится истинным
-                                    Console.WriteLine("Завершение программы.");//выводится сообщение: Завершение программы.
-                                }
-                                break;
-                            }
+                            break;
                         }
                     }
-                    if (ExitProgram == true)//если выход из программы является истинным
-                        break;//завершается внешний цикл
+                    catch (FormatException fex)//обработчик исключения FormatException (входная строка имела неправильный формат)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Что-то пошло не так! Ошибка: {fex.Message} Попробуйте ещё раз.");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: Входная строка имела неправильный формат. 
+                        Console.ForegroundColor = ConsoleColor.White;
+                        continue;
+                    }
+                    catch (OverflowException ofex)//обработчик исключения OverflowException (Значение было недопустимо малым или недопустимо большим для Int32)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Что-то пошло не так! Ошибка: {ofex.Message} Попробуйте ещё раз.");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: Значение было недопустимо малым или недопустимо большим для Int32.
+                        Console.ForegroundColor = ConsoleColor.White;
+                        continue;
+                    }
+                    catch (Exception ex)//обработка исключения Exception (все ошибки в целом)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Что-то пошло не так! Ошибка: {ex.Message} Попробуйте ещё раз.");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: сообщение об ошибке из ex.Message.
+                        Console.ForegroundColor = ConsoleColor.White;
+                        continue;
+                    }
                 }
+                if (ExitProgram == true)//если выход из программы является истинным
+                    break;//завершается внешний цикл
             }
-            catch (FormatException fex)//обработчик исключения FormatException (входная строка имела неправильный формат)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Что-то пошло не так! Ошибка: {fex.Message}");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: Входная строка имела неправильный формат. 
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            catch (OverflowException ofex)//обработчик исключения OverflowException (Значение было недопустимо малым или недопустимо большим для Int32)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Что-то пошло не так! Ошибка: {ofex.Message}");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: Значение было недопустимо малым или недопустимо большим для Int32.
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            catch (Exception ex)//обработка исключения Exception (все ошибки в целом)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Что-то пошло не так! Ошибка: {ex.Message}");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: сообщение об ошибке из ex.Message.
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-
-            Console.ReadKey();
+            Console.ReadKey();//задержка экрана
         }
     }
 }
